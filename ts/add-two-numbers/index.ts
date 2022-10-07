@@ -1,18 +1,3 @@
-/**
- * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
- */
-
-import { create } from "domain";
-import { inspect } from "util";
-
 class ListNode {
     val: number;
     next: ListNode | null;
@@ -37,8 +22,6 @@ class ListNode {
  * '342' + '465' = '807'
  * result = [7,0,8];
  */
-
-type ListNodeOrNull = ListNode | null;
 
 function createListNode(current: number,remaining: number[]): ListNode {
     // If there's no remaining arrays;
