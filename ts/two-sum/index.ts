@@ -10,51 +10,43 @@ You can return the answer in any order.
 
 */
 
-type TwoSum = [number, number];
-type Target = number;
-
-
-const isTarget = (target: Target, a: number, b: number): boolean => a + b === target;
-
-function returnTwoSum(nums: number[],target: Target): number[]{
-    // We're gonna store each two number index here
-    const twoSum: number[] = [];
-    let current = null;
-    for (let index in nums) {
-        const i = parseInt(index);
-        if (!current) {
-            current = i;
-        }
-        const candidate = nums[current] + nums[i+1];
-        if (i < nums.length &&  candidate == target) {
-            twoSum.push(current);
-            twoSum.push(i+1);
-            return twoSum;
-        }
-        current = i;
+// Complexity = o(Nˆ2), is not as efficient
+function twoSum(nums: number[],target: number): (number[] | null ) {
+    for (let i in nums) {
+        for (let j in nums) {
+                const next = parseInt(j) + 1;
+                if (next != parseInt(i) && next < nums.length) {
+                    if (nums[parseInt(i)] + nums[next] == target) {
+                        return [parseInt(i), next];
+                    } 
+                }
+            }
     };
-    throw Error('Error, no twoSum detected');
+    return null;
 };
 
-// Input: nums = [2,7,11,15], target = 9
-// Output: [0,1]
-// Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
-// Example 2:
-
-// Input: nums = [3,2,4], target = 6
-// Output: [1,2]
-// Example 3:
-
-// Input: nums = [3,3], target = 6
-// Output: [0,1]
+// This is o(n), uses a map, but more space
+function optimizedTwoSum(nums: number[],target: number): (number[] | null ) {
+    const map = new Map(); // { key = difference, value: index};
+    for(let i = 0; i < nums.length; i++) {
+        const diff = target - nums[i];
+        if (map.has(diff)) {
+            return [map.get(diff), i];
+        };
+        map.set(diff, i);
+    };
+    return null;
+}
 
 function main() {
     // const nums = [2,7,11,15], target = 9; // [0,1]
     // const nums = [3,2,4], target = 6; // [1,2]
     const nums = [3,3], target = 6 // [0,1]
+    // const nums = [3,2,3], target = 6 // [0,2]
+    // const nums = [2,5,5,11], target = 10; // [1,2]
     
-    const twoSum = returnTwoSum(nums, target);
-    console.log('twoSum: ', twoSum);
+    const res = twoSum(nums, target);
+    console.log('twoSum: ', res);
 };
 
 main();
